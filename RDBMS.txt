@@ -1,0 +1,161 @@
+RDBMS (Relational Database Management System)
+RDBMS is a DBMS where data is stored in tables (rows and columns). 
+__________________________________________________________________
+Examples of RDBMS:
+Oracle
+MySQL
+PostgreSQL
+SQL Server
+_____________________________________________________________________________
+Oracle:
+Oracle software is a database software used to store, manage, and retrieve data.
+Type: RDBMS (Relational Database Management System)
+______________________________________________________________________________
+Why Oracle is RDBMS:
+Stores data in tables (rows & columns)
+Maintains relationships between tables
+Provides security
+Allows multiple users to access data
+Uses SQL to work with data
+________________________________
+What language is used in Oracle?
+SQL → for queries
+PL/SQL → Oracle’s programming language (procedures, functions)
+______________________________________________________________
+Where is Oracle used?
+Banks 
+Railways 
+Universities 
+Large companies & government systems 
+____________________________________________________________________________________________
+SQL-Structured Query Language
+SQL is a language used to communicate with a database to store, retrieve, update, and manage data.
+Using SQL, we can:
+Create databases and tables
+Insert data
+Retrieve data
+Update data
+Delete data
+Control access to data
+_________________________________________________________
+
+SQL Data Types:
+1. Numeric Data Types
+	Numeric data types are used to store numbers.
+	They store only digits (with or without decimals).
+
+Examples:
+INT → stores whole numbers
+Example:
+marks INT
+________________________________
+FLOAT → stores decimal numbers
+Example:
+percentage FLOAT
+__________________________________
+NUMBER (Oracle) → stores both integer and decimal values
+Example:
+salary NUMBER
+________________________________________________________
+2. Character Data Types
+Character data types are used to store text (characters).
+They store letters, words, and symbols.
+Examples:
+CHAR(n) → fixed-length text
+Example:
+gender CHAR(1)
+_______________________________________________________
+VARCHAR(n) / VARCHAR2(n) → variable-length text
+Example:
+name VARCHAR2(20)
+_______________________________________________________
+3. Date and Time Data Types
+	Used to store date and time values.
+Example:
+DATE
+
+dob DATE
+_______________________________________________________
+4. Large Object Data Types
+	Used to store very large data.
+Examples:
+BLOB → images, videos
+photo BLOB
+
+CLOB → large text
+address CLOB
+_______________________________________________________
+5. Boolean Data Type (Special Case)
+Stores TRUE or FALSE values.
+Example:
+	result BOOLEAN
+Note: Supported in PL/SQL, not in Oracle table columns.
+___________________________________________________________________
+What are Constraints?
+Constraints are rules applied on table columns to control the data.
+They decide what data is allowed and what data is not allowed.
+
+Example (WITHOUT constraints)
+CREATE TABLE student (
+  id INT,
+  name VARCHAR2(20),
+  marks INT
+);
+Now insert wrong data:
+INSERT INTO student VALUES (1, NULL, -50);
+INSERT INTO student VALUES (1, 'Ravi', 120);
+---------------------------------------------
+Problems:
+NULL name allowed 
+Duplicate id allowed 
+Negative marks allowed 
+Marks greater than 100 allowed 
+Note: Database stores wrong and meaningless data.
+_________________________________________________________________________________________________________________________
+We need constraints to:
+	Prevent wrong data
+	Maintain data accuracy
+	Maintain data consistency
+
+Note: Constraints protect the database from invalid data.
+__________________________________________________________________________________________________________________________
+Types of Constraints
+	1. NOT NULL
+		Prevents empty values.
+		name VARCHAR2(20) NOT NULL
+
+		Note: NULL value not allowed.
+	2. UNIQUE
+		Prevents duplicate values.
+		email VARCHAR2(30) UNIQUE
+
+		Duplicate email not allowed.
+	3. PRIMARY KEY
+		Uniquely identifies each row.
+		(Combination of NOT NULL + UNIQUE)
+		id INT PRIMARY KEY
+	4. CHECK
+		Restricts values based on condition.
+		marks INT CHECK (marks >= 0)
+
+	5. FOREIGN KEY
+		Creates relationship between tables.
+		sid INT REFERENCES student(id)
+_____________________________________________________
+Example:
+Think of college rules:
+Roll number must be unique → PRIMARY KEY
+Name cannot be empty → NOT NULL
+Marks must be 0–100 → CHECK
+______________________________________________________
+Same Table WITH Constraints
+CREATE TABLE student (
+  id INT PRIMARY KEY,
+  name VARCHAR2(20) NOT NULL,
+  marks INT CHECK (marks BETWEEN 0 AND 100)
+);
+Now try inserting wrong data:
+INSERT INTO student VALUES (1, NULL, 90);   --Error
+INSERT INTO student VALUES (1, 'Ravi', 110); -- Error
+______________________________________________________
+
