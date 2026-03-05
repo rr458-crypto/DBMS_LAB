@@ -1,0 +1,26 @@
+Create a simple PL/SQL program which includes declaration section, executable section and exception –Handling section (Ex. Student marks can be selected from the table and printed for those who secured first class and an exception can be raised if no records were found)
+Program:
+
+SET SERVEROUTPUT ON;
+DECLARE
+    v_count NUMBER := 0;
+BEGIN
+    FOR s IN (SELECT rollno, name, marks 
+              FROM student 
+              WHERE marks >= 60)
+    LOOP
+       v_count := v_count + 1;
+        DBMS_OUTPUT.PUT_LINE('RollNo: ' || s.rollno || ' ,'||
+                             ' Name: ' || s.name || ' ,'||
+                             ' Marks: ' || s.marks);
+    END LOOP;
+    IF v_count = 0 THEN
+        RAISE NO_DATA_FOUND;
+    END IF;
+    EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No Record Found');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Some error occurred');
+END;
+/

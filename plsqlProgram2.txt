@@ -1,0 +1,27 @@
+ii. Insert data into student table and use COMMIT, ROLLBACK and SAVEPOINT in PL/SQL block.
+Program:
+SET SERVEROUTPUT ON;
+BEGIN
+    -- First insert
+    INSERT INTO student VALUES (101,'aaa',72,null);
+    DBMS_OUTPUT.PUT_LINE('Inserted aaa');
+    SAVEPOINT sp1;
+    -- Second insert
+    INSERT INTO student VALUES (102,'bbb',55,null);
+    DBMS_OUTPUT.PUT_LINE('Inserted bbb');
+    SAVEPOINT sp2;
+    -- Third insert
+    INSERT INTO student VALUES (103,'ccc',68,null);
+    DBMS_OUTPUT.PUT_LINE('Inserted CCC');
+    -- Rollback to SAVEPOINT sp2 (undo only third insert)
+    ROLLBACK TO sp2;
+    DBMS_OUTPUT.PUT_LINE('Rollback to SAVEPOINT sp2');
+    -- Commit remaining changes
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Transaction committed');
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error occurred. All changes rolled back');
+END;
+/
